@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Build bread-compact-wifi-lcd (GC9A01)
+        shell: bash
         env:
           BOARD: bread-compact-wifi-lcd
           VARIANT: bread-compact-wifi-lcd
