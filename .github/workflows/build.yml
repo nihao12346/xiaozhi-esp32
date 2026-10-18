@@ -1,4 +1,5 @@
 name: Build Boards
+# gc9a01 custom build
 
 on:
   # Manual runs exercise the full matrix, including CI-specific options.
