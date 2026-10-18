@@ -1243,6 +1243,14 @@ void LcdDisplay::SetEmotion(const char* emotion) {
         }
     } else {
         lv_image_set_src(emoji_image_, image->image_dsc());
+        // Scale the emoji to fill ~90% of the screen height (240x240 round panel)
+        auto emoji_dsc = image->image_dsc();
+        if (emoji_dsc != nullptr && emoji_dsc->header.h > 0) {
+            int emoji_scale = 256 * height_ * 9 / 10 / emoji_dsc->header.h;
+            if (emoji_scale < 256) emoji_scale = 256;
+            if (emoji_scale > 4096) emoji_scale = 4096;
+            lv_image_set_scale(emoji_image_, emoji_scale);
+        }
         lv_obj_add_flag(emoji_label_, LV_OBJ_FLAG_HIDDEN);
         lv_obj_remove_flag(emoji_image_, LV_OBJ_FLAG_HIDDEN);
     }
