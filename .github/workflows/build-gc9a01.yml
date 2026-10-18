@@ -1,0 +1,22 @@
+name: Build GC9A01
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: espressif/idf:release-v6.1
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build bread-compact-wifi-lcd (GC9A01)
+        env:
+          BOARD: bread-compact-wifi-lcd
+          VARIANT: bread-compact-wifi-lcd
+        run: |
+          source "$IDF_PATH/export.sh"
+          python scripts/build.py "$BOARD" --name "$VARIANT"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: xiaozhi-gc9a01
+          path: build/merged-binary.bin
+          if-no-files-found: error
